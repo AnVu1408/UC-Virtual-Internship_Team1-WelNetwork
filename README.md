@@ -1,105 +1,99 @@
 # UC-Virtual-Internship_Team1-WelNetwork
 
-This repository contains the code and data used in the UC Virtual Internship project by Team 1 for Wel Network. The project primarily focuses on analyzing communication health between electricity meters in rural areas and visualizing the results through maps and data plots.
+This repository contains the code and data used in the UC Virtual Internship project by **Team 1** for **Wel Network**. The project primarily focuses on analyzing communication health between electricity meters in rural areas and visualizing the results through maps and data plots.
+
+---
 
 ## 📁 Project Structure
 
+<pre>
 UC-VIRTUAL-INTERNSHIP_Team1-WelNetwork/
 ├── data/
-│ ├── AP endpoint numbers.csv
-│ ├── meter_routes_primary_only.json
-│ ├── Routing tree table .csv
-│ ├── RURAL ICP with meter list.csv
+│   ├── AP endpoint numbers.csv
+│   ├── meter_routes_primary_only.json
+│   ├── Routing tree table .csv
+│   ├── RURAL ICP with meter list.csv
 ├── distance/
-│ └── distance.py
+│   └── distance.py
 ├── map/
-│ ├── map.html
-│ └── map.py
+│   ├── map.html
+│   └── map.py
 ├── healthy_comm_plot.py
 ├── healthy_comms.csv
 ├── healthy_comms2.csv
 ├── nearest_5_healthy_meters.csv
 ├── unhealthy_comms.csv
 ├── README.md
+</pre>
 
+---
 
 ## 📌 Project Description
 
-The goal of this project is to evaluate and improve the reliability of smart meter communication within rural networks. We analyze both healthy and unhealthy communication patterns using provided datasets and visualize results for better decision-making support.
+The goal of this project is to evaluate and improve the reliability of smart meter communication within rural electricity networks. The analysis focuses on:
+- Identifying meters with unhealthy communication.
+- Finding the nearest 5 healthy meters for each unhealthy one.
+- Visualizing communication data using plots and interactive maps.
+
+---
 
 ## 🔍 Main Components
 
-- **data/**: Contains all relevant input datasets including routing tables, meter IDs, and communication data.
-- **distance/**: Includes scripts for calculating distances between meters (e.g., `distance.py`).
-- **map/**: Contains scripts and HTML for visualizing communication data on a map (e.g., `map.py`, `map.html`).
-- **healthy_comm_plot.py**: Script to visualize communication data (healthy vs. unhealthy).
-- **CSV files**:
-  - `healthy_comms.csv`, `healthy_comms2.csv`: Records of meters with good communication.
-  - `unhealthy_comms.csv`: Meters with poor or failed communication.
-  - `nearest_5_healthy_meters.csv`: Reference for nearest working meters to each unhealthy one.
+- **`data/`**: Raw datasets including routing tables, meter info, and communication health.
+- **`distance/`**: Code to compute distances between meters.
+- **`map/`**: Scripts and HTML to generate and display an interactive map.
+- **`healthy_comm_plot.py`**: Visualizes healthy vs unhealthy meter communications.
+- **CSV Files**:
+  - `healthy_comms.csv`, `healthy_comms2.csv`: Healthy meter records.
+  - `unhealthy_comms.csv`: Meters with poor communication.
+  - `nearest_5_healthy_meters.csv`: Lookup of nearby healthy meters.
+
+---
 
 ## ⚙️ How to Use
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/AnVu1408/UC-Virtual-Internship_Team1-WelNetwork.git
-   cd UC-Virtual-Internship_Team1-WelNetwork
-Install dependencies (if required, e.g., pandas, folium):
+### 1. Clone the Repository
 
-bash
-Copy
-Edit
+```bash
+git clone https://github.com/AnVu1408/UC-Virtual-Internship_Team1-WelNetwork.git
+cd UC-Virtual-Internship_Team1-WelNetwork
+
+### 2. Install Dependencies
+If your Python scripts require libraries like pandas, folium, etc., install them using:
 pip install -r requirements.txt
-Run distance calculations:
 
-bash
-Copy
-Edit
+### 3. Run Distance Calculations
 python distance/distance.py
-Generate communication plots:
 
-bash
-Copy
-Edit
+### 4. Generate Plot
 python healthy_comm_plot.py
-View map visualizations:
-
-See next section for instructions.
 
 🗺️ How to Run the Interactive Map
 ✅ Requirements
-Ensure map.html is located in the map/ folder.
+Ensure map/map.html exists.
 
-Ensure the data/ folder is at the root level and contains all necessary datasets.
-
+Ensure the data/ folder is in the root directory with necessary CSV/JSON files.
 ▶️ Start a Local Server
-To view the map in your browser, start a simple HTTP server:
-
-bash
-Copy
-Edit
 python3 -m http.server
-This will serve files in the current directory at http://localhost:8000.
+This command serves the current folder on http://localhost:8000.
 
 🌐 Open the Map
-Once the server is running, open the following link in your browser:
-
-bash
-Copy
-Edit
+In your browser, navigate to:
 http://localhost:8000/map/map.html
-You should now see an interactive map that visualizes meter communication health.
+You will see an interactive map visualizing meter health and proximity.
 
 📊 Datasets Used
-Smart meter routing and location information.
+AP endpoint numbers.csv
+RURAL ICP with meter list.csv
+Routing tree table .csv
+meter_routes_primary_only.json
 
-Primary meter routes and endpoint communication health.
-
-👥 Team Members
-An Vu
-Hansa Aruna Yasantha
-Najiya Pattanath Mullassery
-Supervised under the UC Virtual Internship 
+✍️ Authors
+Team 1 - UC Virtual Internship:
+- Le Kha An Vu
+- Najiya Pattanath Mullassery
+- Hansa Yasantha
+GitHub: @AnVu1408
 
 📄 License
 For academic and internal use only.
