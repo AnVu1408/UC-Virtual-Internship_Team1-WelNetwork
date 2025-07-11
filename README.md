@@ -1,6 +1,3 @@
-Here is your **cleaned and properly formatted `README.md`** version — ready to copy and paste:
-
----
 
 ```markdown
 # UC-Virtual-Internship_Team1-WelNetwork
@@ -12,7 +9,7 @@ This repository contains the code and data used in the UC Virtual Internship pro
 ## 📁 Project Structure
 
 ```
-
+<pre>
 UC-VIRTUAL-INTERNSHIP\_Team1-WelNetwork/
 ├── data/
 │   ├── AP endpoint numbers.csv
@@ -32,6 +29,7 @@ UC-VIRTUAL-INTERNSHIP\_Team1-WelNetwork/
 ├── README.md
 
 ````
+</pre> 
 
 ---
 
