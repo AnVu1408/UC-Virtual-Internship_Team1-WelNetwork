@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Meter → Primary AP Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    html, body, #map {
+      height: 100%;
+      margin: 0;
+    }
+    #controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: absolute;
+      z-index: 1000;
+      background: white;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      font-family: sans-serif;
+    }
+    #legend {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      font-size: 14px;
+      font-family: sans-serif;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      margin-right: 8px;
+      border-radius: 50%;
+    }
+    .ap-color { background: lightgreen; border: 1px solid green; }
+    .meter-color { background: blue; border: 1px solid darkblue; }
+  </style>
+</head>
+<body>
+
+<div id="controls">
+  <label for="apSelect"><strong>Filter by Access Point:</strong></label>
+  <select id="apSelect">
+    <option value="all">-- Show All --</option>
+  </select>
+</div>
+
+<div id="map"></div>
+
+<!-- Legend -->
+<div id="legend">
+  <div class="legend-item">
+    <div class="legend-color meter-color"></div>
+    Meter
+  </div>
+  <div class="legend-item">
+    <div class="legend-color ap-color"></div>
+    Access Point (AP)
+  </div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+  const map = L.map('map', { zoomControl: false }).setView([-37.8, 175.0], 9);
+  L.control.zoom({ position: 'bottomleft' }).addTo(map);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const routes = [], lines = [], meters = [], aps = [];
+  const apSelect = document.getElementById("apSelect");
+
+  fetch('../data/meter_routes_primary_only.json')
+    .then(res => res.json())
+    .then(data => {
+      routes.push(...data);
+      const apNames = [...new Set(data.map(d => d.ap_name))].sort();
+      apNames.forEach(ap => {
+        const option = document.createElement("option");
+        option.value = ap;
+        option.textContent = ap;
+        apSelect.appendChild(option);
+      });
+      renderRoutes("all");
+    });
+
+  function renderRoutes(apFilter) {
+    lines.forEach(l => map.removeLayer(l));
+    meters.forEach(m => map.removeLayer(m));
+    aps.forEach(a => map.removeLayer(a));
+    lines.length = meters.length = aps.length = 0;
+
+    const bounds = L.latLngBounds();
+
+    routes.forEach(route => {
+      if (apFilter !== "all" && route.ap_name !== apFilter) return;
+
+      const line = L.polyline([
+        [route.device_lat, route.device_lon],
+        [route.ap_lat, route.ap_lon]
+      ], { color: 'green', weight: 2, opacity: 0.7 }).addTo(map);
+      lines.push(line);
+
+      const meterMarker = L.circleMarker([route.device_lat, route.device_lon], {
+        radius: 4,
+        color: 'blue',
+        fillColor: 'blue',
+        fillOpacity: 0.9
+      }).bindPopup(`<strong>Device:</strong> ${route.device}<br><strong>Hop Count:</strong> ${route.hopcount}`).addTo(map);
+      meters.push(meterMarker);
+
+      const apMarker = L.circleMarker([route.ap_lat, route.ap_lon], {
+        radius: 6,
+        color: 'green',
+        fillColor: 'lightgreen',
+        fillOpacity: 0.8
+      }).bindPopup(`<strong>Access Point:</strong> ${route.ap_name}`).addTo(map);
+      aps.push(apMarker);
+
+      bounds.extend([route.device_lat, route.device_lon]);
+      bounds.extend([route.ap_lat, route.ap_lon]);
+    });
+
+    if (!bounds.isEmpty()) map.fitBounds(bounds);
+  }
+
+  apSelect.addEventListener("change", e => renderRoutes(e.target.value));
+</script>
+</body>
+</html>
