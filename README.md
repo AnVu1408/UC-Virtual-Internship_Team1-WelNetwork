@@ -1,5 +1,4 @@
 
-```markdown
 # UC-Virtual-Internship_Team1-WelNetwork
 
 This repository contains the code and data used in the UC Virtual Internship project by **Team 1** for **Wel Network**. The project primarily focuses on analyzing communication health between electricity meters in rural areas and visualizing the results through maps and data plots.
@@ -7,8 +6,6 @@ This repository contains the code and data used in the UC Virtual Internship pro
 ---
 
 ## 📁 Project Structure
-
-```
 <pre>
 UC-VIRTUAL-INTERNSHIP\_Team1-WelNetwork/
 ├── data/
