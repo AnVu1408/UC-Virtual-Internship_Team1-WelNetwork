@@ -134,10 +134,3 @@ GitHub: [@AnVu1408](https://github.com/AnVu1408)
 
 For academic and internal use only.
 All data and resources provided by **Wel Networks** for educational purposes under agreement with the **University of Canterbury**.
-
-```
-
----
-
-Let me know if you want a `requirements.txt` generated from your code, or a badge/header added to make it pop visually on GitHub!
-```
