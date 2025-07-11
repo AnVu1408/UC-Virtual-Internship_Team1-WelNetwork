@@ -56,7 +56,7 @@ The goal of this project is to evaluate and improve the reliability of smart met
 
 ```bash
 git clone https://github.com/AnVu1408/UC-Virtual-Internship_Team1-WelNetwork.git
-cd UC-Virtual-Internship_Team1-WelNetwork
+cd UC-Virtual-Internship_Team1-WelNetwork```
 
 ### 2. Install Dependencies
 If your Python scripts require libraries like pandas, folium, etc., install them using:
